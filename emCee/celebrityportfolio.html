@@ -1,0 +1,125 @@
+<style>
+.sidebar{
+ display: none !important;
+}
+
+ .grid {
+    margin: 0 9% 0 14% !important;
+}
+
+@media only screen and (max-width: 768px) {
+   .grid {
+    margin: 0 1% 0 1% !important;
+   }
+}
+  #gallery{
+   line-height:0;
+   -webkit-column-count:4; /* split it into 5 columns */
+   -webkit-column-gap:5px; /* give it a 5px gap between columns */
+   -moz-column-count:5;
+   -moz-column-gap:5px;
+   column-count:4;
+   column-gap:5px;
+}
+#gallery img{
+   width: 100% !important;
+   height: auto !important;
+   margin-bottom:5px; /* to match column gap */
+   filter: grayscale(100%);
+   transition: filter 2s;
+}
+
+#gallery img:hover{
+   filter:none;
+}
+
+#darkbox{ width:82vw; height:85vh; position:absolute; top:18% !important; left:10% !important; background-color:black; overflow: hidden; text-align:center;}
+
+.darkboximg{ padding:5%; max-width: 1216px; max-height: 684px; }
+
+@media(max-width: 1200px){
+   #gallery {
+    -moz-column-count:    4;
+    -webkit-column-count: 4;
+    column-count:         4;
+   }
+}
+
+@media(max-width: 1000px){
+   #gallery {
+    -moz-column-count:    3;
+    -webkit-column-count: 3;
+    column-count:         3;
+   }
+}
+
+@media(max-width: 800px){
+   #gallery {
+    -moz-column-count:    2;
+    -webkit-column-count: 2;
+    column-count:         2;
+   }
+}
+
+@media(max-width: 400px){
+   #gallery {
+    -moz-column-count:    1;
+    -webkit-column-count: 1;
+    column-count:         1;
+   }
+}
+ 
+  #darkbox p {
+    color:white;
+    font-size: 2rem;
+  }
+</style>
+<div id="gallery">
+<img src="https://cdn.shopify.com/s/files/1/0599/7176/4444/files/TS_1.jpg" data-name="Fat Joe and the NY Terror Squad"> <img src="https://cdn.shopify.com/s/files/1/0599/7176/4444/files/IMG_0531.jpg" data-name="Wiz Khalifa AJ1's"> <img src="https://cdn.shopify.com/s/files/1/0599/7176/4444/files/LilBaby.jpg" data-name="Lil Baby Customs: Drip Too Hard"> <img src="https://cdn.shopify.com/s/files/1/0599/7176/4444/files/IMG_5627.jpg" data-name="Legendary Producer MyGuyMars"> <img src="https://cdn.shopify.com/s/files/1/0599/7176/4444/files/IMG_3470.jpg" data-name="Royal AJ1's for DJ Khaled"> <img src="https://cdn.shopify.com/s/files/1/0599/7176/4444/files/SnoopyDoopy2.jpg?v=1647569571" data-name="Customs for Snoop Dogg"> <img src="https://cdn.shopify.com/s/files/1/0599/7176/4444/files/IMG_0610.jpg" data-name="You Make Me Wanna. Customs signed by Usher"> <img src="https://cdn.shopify.com/s/files/1/0599/7176/4444/files/Gunna.jpg" data-name="Custom work for Gunna"> <img src="https://cdn.shopify.com/s/files/1/0599/7176/4444/files/071F4393-E964-4F7F-9E41-967AD979DB1E.jpg" data-name="Custom Work for Cover Girl Bia">
+</div>
+<br> <br> <br>
+<script>// <![CDATA[
+let darkBoxVisible = false;
+
+function showDarkbox(url, description) {
+   if(!darkBoxVisible) {
+    let x = (window.innerWidth - 1280) / 2;
+    let y = window.scrollY + 50;
+    // Create the darkBox
+    var div = document.createElement("div");
+    div.id = "darkbox";
+    div.innerHTML = '<img class="darkboximg" src="' + url + '" /> <p> '+ description + '</p> <br> <br>';
+    console.log(div.innerHTML)
+    document.body.appendChild(div);
+    let box = document.getElementById("darkbox");
+    box.style.left = x.toString()+"px";
+    box.style.top = y.toString()+"px";
+    box.style.height = 'auto';
+    box.addEventListener('click', (event) => {
+     // Remove it
+     let element = document.getElementById("darkbox");
+     element.parentNode.removeChild(element);
+     darkBoxVisible = false;
+    })
+    darkBoxVisible = true;
+  } else {
+    // Remove it
+    let element = document.getElementById("darkbox");
+    element.parentNode.removeChild(element);
+    darkBoxVisible = false;
+ }
+}
+
+window.addEventListener('load', (event) => {
+   let images = document.querySelectorAll("img");
+   if(images !== null && images !== undefined && images.length > 0) {
+    images.forEach(function(img) {
+      // console.log("in foreach")
+      // console.log(img.getAttribute('data-name'))
+     img.addEventListener('click', (evt) => {
+      showDarkbox(img.src, img.getAttribute('data-name'));
+     });
+    });
+   }
+  });
+// ]]></script>
